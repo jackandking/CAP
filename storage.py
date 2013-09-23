@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Author: Yingjie.Liu@thomsonreuters.com
+# Author: liang.zhang1@thomsonreuters.com
 # DateTime: 2013-09-15 15:48:54.512000
 # Generator: https://github.com/jackandking/newpy
 # Newpy Version: 0.8
