@@ -6,11 +6,11 @@
 # Newpy ID: 159
 # Description: Any easy way to send email in script.
 
-import urllib, urllib2
+import requests
 import unittest
 
-#g_email_proxy="http://sendemail.duapp.com/"
-g_email_proxy="http://localhost:8000"
+g_email_proxy="http://sendemail.duapp.com/"
+#g_email_proxy="http://localhost:8000"
 
 class Email:
   def __init__(self,a_sub=None,a_body=None,a_to=None):
@@ -30,31 +30,26 @@ class Email:
     else:
       self.m_to=a_to
     return self
-  def attach(self,a_filename,a_content):
-    self.m_attach[a_filename]=a_content
+  def attach(self,a_filename,a_file):
+    self.m_attach[a_filename]=a_file
     return self
   def send(self):
     if not (self.m_subject and self.m_body and self.m_to):
       return False
-    l_dict={'subject':self.m_subject,
+    l_data={'subject':self.m_subject,
         'message':self.m_body,
         'to':self.m_to}
-    if len(self.m_attach) == 1:
-      l_dict['filename']=self.m_attach.keys()[0]
-      l_dict['content']=self.m_attach.values()[0]
-    elif len(self.m_attach) == 2:
-      l_dict['filename']=self.m_attach.keys()[0]
-      l_dict['content']=self.m_attach.values()[0]
-      l_dict['filename2']=self.m_attach.keys()[1]
-      l_dict['content2']=self.m_attach.values()[1]
+    l_files={}
+    for i in range(len(self.m_attach)):
+      l_files['file'+str(i)]=(self.m_attach.keys()[i],self.m_attach.values()[i])
     try:
-      l_params=urllib.urlencode(l_dict)
-      l_res=urllib2.urlopen(g_email_proxy,l_params).read()
-      if l_res=='ok':
+      l_res=requests.post(g_email_proxy,data=l_data,files=l_files)
+      if l_res.text =='ok':
         return True
       else:
         return False
-    except:
+    except Exception,e:
+      print e
       return False
     
 class _UT(unittest.TestCase):
@@ -64,10 +59,10 @@ class _UT(unittest.TestCase):
   def test_two_recver(self):
     l_ret = Email('test two receivers','this is a test!','jackandking@gmail.com,jackandking@sina.cn').send()
   def test_one_attach(self):
-    l_ret = Email('test with attachment','this is a test with one attachment!','jackandking@gmail.com').attach('test.py',open('jp_email.py','rb').read()).send()
+    l_ret = Email('test with attachment','this is a test with one attachment!','jackandking@gmail.com').attach('test.py',open('jp_email.py','rb')).send()
     self.failUnless(l_ret)
   def test_two_attach(self):
-    l_ret = Email('test with two attachment','this is a test with one attachment!','jackandking@gmail.com').attach('test.py',open('jp_email.py','rb').read()).attach('APP_usecase.jpg',open('APP_usecase.jpg','rb').read()).send()
+    l_ret = Email('test with two attachment','this is a test with one attachment!','jackandking@gmail.com').attach('test.py',open('jp_email.py','rb')).attach('APP_usecase.jpg',open('APP_usecase.jpg','rb')).send()
     self.failUnless(l_ret)
 
 def main():
