@@ -5,10 +5,13 @@
 # Newpy Version: 1.0
 # Newpy ID: 145
 # Description: This is the main entry to CCT Audit Platform
+# Change History:
+# 2013-10-07 1:01:16 PM Integrate ConvertRawData
 
 
 import unittest
 from RTFetcher import RTFetcher 
+from ConvertRawData import *
 import logging
 
 class CAP_UT(unittest.TestCase):
@@ -18,6 +21,10 @@ class CAP_UT(unittest.TestCase):
       l_f.login()
       l_f.fetch()
       l_f.save()
+
+      l_c=RawDateConverter()
+      l_c.get_raw_data()
+      l_c.generate_local_file(get_date_with_offset(-7))
 
 
 def main():
