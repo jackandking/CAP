@@ -12,6 +12,7 @@
 import unittest
 from RTFetcher import RTFetcher 
 from ConvertRawData import *
+from CCSReportGenerator import CCSReportGenerator
 import logging
 
 class CAP_UT(unittest.TestCase):
@@ -26,6 +27,9 @@ class CAP_UT(unittest.TestCase):
       l_c.get_raw_data()
       l_c.generate_local_file(get_date_with_offset(-7))
 
+      l_g=CCSReportGenerator()
+      l_g.callPerlScript()
+      l_g.save()
 
 def main():
     unittest.main()
