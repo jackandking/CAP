@@ -41,7 +41,7 @@ class RawDateConverter():
         response_csv_head = ["id", "Subject", "CF-System Type", "CF-Region", "Status", "Priority", "Owner", "Created", "Resolved",  "Queue", "CF-Root Cause", "Responded"]
         ofile_response=open("responds.csv","wb")
         response_csv_writer = csv.writer(ofile_response, delimiter='\t')
-        ofile_response.write("#start_date: $start_date_raw\n")
+        ofile_response.write('#start_date: '+from_date_str+'\n')
         response_csv_writer.writerow(response_csv_head)
 
 
@@ -114,6 +114,6 @@ class RawDateConverter():
 
 if __name__ == '__main__':
     l_f = RawDateConverter()
-    l_f.get_raw_data()
+#    l_f.get_raw_data()
     l_f.generate_local_file(get_date_with_offset(-7))
     
