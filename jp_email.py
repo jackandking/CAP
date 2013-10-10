@@ -73,7 +73,7 @@ class Email:
     for i in range(len(self.m_attach)):
       l_files['file'+str(i)]=(self.m_attach.keys()[i],self.m_attach.values()[i])
     try:
-      l_res=requests.post(g_email_proxy,data=l_data,files=l_files)
+      l_res=requests.post(g_email_proxy,data=l_data,files=l_files,proxies={"http":"http://10.40.14.34:80"})
       if l_res.text =='ok':
         return True
       else:
@@ -87,6 +87,10 @@ class _UT(unittest.TestCase):
     l_ret = Email('test 163 to TR','this is a test!','yingjie.liu@thomsonreuters.com').send()
     self.failUnless(l_ret)
 
+  def test_mandrill(self):
+    l_ret = Email('test mandrill to TR','this is a test!','yingjie.liu@thomsonreuters.com').send(a_server='smtp.mandrillapp.com',a_from='jackandking@gmail.com',a_pswd='ansxkLz0lOWK6eGcu0bRmA')
+    self.failUnless(l_ret)
+
   def test_quickway(self):
     l_ret = Email('test','this is a test!','cctauditplatform@sina.com').send()
     self.failUnless(l_ret)
@@ -95,8 +99,8 @@ class _UT(unittest.TestCase):
     l_ret = Email('test','this is a test sina to sina!','cctauditplatform@sina.com').send(a_server='smtp.sina.com',a_from='cctauditplatform@sina.com')
     self.failUnless(l_ret)
 
-  def test_sina2sina_cn2com(self):
-    l_ret = Email('test','this is a test sina.cn to sina.com!','cctauditplatform@sina.com').send(a_server='smtp.sina.cn',a_from='jackandking@sina.cn',a_pswd='njp981')
+  def test_sina2TR(self):
+    l_ret = Email('test','this is a test sina.cn to sina.com!','cctauditplatform@sina.com').send(a_server='smtp.sina.com',a_from='cctauditplatform@sina.com')
     self.failUnless(l_ret)
 
   def test_sina2163(self):

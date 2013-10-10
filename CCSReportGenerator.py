@@ -10,64 +10,93 @@ import unittest
 import subprocess
 import os
 import storage
-from datetime import date
+from datetime import date,timedelta
 import logging
 logging.basicConfig(level=logging.DEBUG)
+from mail import *
 
 class FooTest(unittest.TestCase):
-	"""docstring for FooTest"""
-	# def __init__(self, arg):
-	# 	super(FooTest, self).__init__()
-	# 	self.arg = arg
+  """docstring for FooTest"""
+  # def __init__(self, arg):
+  #   super(FooTest, self).__init__()
+  #   self.arg = arg
 
-	def testFoo(self):
-		gen = CCSReportGenerator()
-		result = gen.callPerlScript()
-		print result
+  def testFoo(self):
+    gen = CCSReportGenerator()
+    result = gen.callPerlScript()
+    print result
 
 def main():
-	unittest.main()
+  unittest.main()
 
 if __name__ == '__main__':
-	main()
+  main()
 
 class CCSReportGenerator():
-	"""docstring for CCSReportGenerator"""
+  """docstring for CCSReportGenerator"""
 
-	def callPerlScript(self):
-		subprocess.call(["perl", "_2_gen_report_GQS.pl"])
-		subprocess.call(["perl", "_3_gen_report_ALL.pl"])
-		subprocess.call(["perl", "_4_gen_graph_month.pl"])
-		subprocess.call(["perl", "_4_gen_graph_week.pl"])
-	
-	def save(self):
-		strDate = date.today().strftime("%Y-%m-%d")
-		reportAllFilename = "WeeklySummary_" + strDate + "_ALL.htm"
-		reportGqsFilename = "WeeklySummary_" + strDate + "_ALL.htm"
-		grapthMonthCsvFilename = "all_hist_graph_month.csv"
-		graphWeekCsvFilename = "all_hist_graph.csv"
-		savedGraphMonthFilename = "Grath_Month_" + strDate + ".csv"
-		savedGraphWeekFilename = "Grath_Week_" + strDate + ".csv"
+  def callPerlScript(self):
+    subprocess.call(["perl", "_2_gen_report_GQS.pl"])
+    subprocess.call(["perl", "_3_gen_report_ALL.pl"])
+    subprocess.call(["perl", "_4_gen_graph_month.pl"])
+    subprocess.call(["perl", "_4_gen_graph_week.pl"])
 
-		srcFile = open(reportAllFilename)
-		reportAllContent = srcFile.read()
-		srcFile.close()
+  def publish(self):
+    strDate = (date.today()-timedelta(days=7)).strftime("%Y-%m-%d")
+    reportAllFilename = "WeeklySummary_" + strDate + "_ALL.htm"
+    reportGqsFilename = "WeeklySummary_" + strDate + "_GQS.htm"
+    grapthMonthCsvFilename = "all_hist_graph_month.csv"
+    graphWeekCsvFilename = "all_hist_graph.csv"
+    savedGraphMonthFilename = "Grath_Month_" + strDate + ".csv"
+    savedGraphWeekFilename = "Grath_Week_" + strDate + ".csv"
 
-		srcFile = open(reportGqsFilename)
-		reportGqsContent = srcFile.read()
-		srcFile.close()
+    srcFile = open(reportAllFilename)
+    reportAllContent = srcFile.read()
+    srcFile.close()
 
-		srcFile = open(grapthMonthCsvFilename)
-		graphMonthCsvContent = srcFile.read()
-		srcFile.close()
+    srcFile = open(reportGqsFilename)
+    reportGqsContent = srcFile.read()
+    srcFile.close()
 
-		srcFile = open(graphWeekCsvFilename)
-		graphWeekCsvContent = srcFile.read()
-		srcFile.close()
+    srcFile = open(grapthMonthCsvFilename)
+    graphMonthCsvContent = srcFile.read()
+    srcFile.close()
 
-		l_store = storage.storage()
-		l_store.write({'filename':reportAllFilename,'content':reportAllContent})
-		l_store.write({'filename':reportGqsFilename,'content':reportGqsContent})
-		l_store.write({'filename':savedGraphMonthFilename,'content':graphMonthCsvContent})
-		l_store.write({'filename':savedGraphWeekFilename,'content':graphWeekCsvContent})
-		logging.debug("report save done.")
+    srcFile = open(graphWeekCsvFilename)
+    graphWeekCsvContent = srcFile.read()
+    srcFile.close()
+
+    to=['chao.xie@thomsonreuters.com','yingjie.liu@thomsonreuters.com','liang.zhang1@thomsonreuters.com']
+    send_mail('jiu.chen@thomsonreusters.com',to,'CCS Weekly Report',reportAllContent)
+
+  def save(self):
+    strDate = date.today().strftime("%Y-%m-%d")
+    reportAllFilename = "WeeklySummary_" + strDate + "_ALL.htm"
+    reportGqsFilename = "WeeklySummary_" + strDate + "_ALL.htm"
+    grapthMonthCsvFilename = "all_hist_graph_month.csv"
+    graphWeekCsvFilename = "all_hist_graph.csv"
+    savedGraphMonthFilename = "Grath_Month_" + strDate + ".csv"
+    savedGraphWeekFilename = "Grath_Week_" + strDate + ".csv"
+
+    srcFile = open(reportAllFilename)
+    reportAllContent = srcFile.read()
+    srcFile.close()
+
+    srcFile = open(reportGqsFilename)
+    reportGqsContent = srcFile.read()
+    srcFile.close()
+
+    srcFile = open(grapthMonthCsvFilename)
+    graphMonthCsvContent = srcFile.read()
+    srcFile.close()
+
+    srcFile = open(graphWeekCsvFilename)
+    graphWeekCsvContent = srcFile.read()
+    srcFile.close()
+
+    l_store = storage.storage()
+    l_store.write({'filename':reportAllFilename,'content':reportAllContent})
+    l_store.write({'filename':reportGqsFilename,'content':reportGqsContent})
+    l_store.write({'filename':savedGraphMonthFilename,'content':graphMonthCsvContent})
+    l_store.write({'filename':savedGraphWeekFilename,'content':graphWeekCsvContent})
+    logging.debug("report save done.")

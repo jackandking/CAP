@@ -21,8 +21,18 @@ class CAP_UT(unittest.TestCase):
       l_f=RTFetcher()
       l_f.login()
       l_f.fetch()
-      l_f.save()
+      l_fn="Results1.csv"
+      l_f.save(l_fn)
 
+      l_c=RawDateConverter()
+      l_c.get_raw_data(l_fn)
+      l_c.generate_local_file(get_date_with_offset(-7))
+
+      l_g=CCSReportGenerator()
+      l_g.callPerlScript()
+      #l_g.save()
+      l_g.publish()
+    def test2(self):
       l_c=RawDateConverter()
       l_c.get_raw_data()
       l_c.generate_local_file(get_date_with_offset(-7))

@@ -22,11 +22,11 @@ def get_date_with_offset(n_days,in_date=str(datetime.date.today())[:10]):
     return str(datetime.datetime(begin_date[0],begin_date[1],begin_date[2]) + datetime.timedelta(days=n_days))[:10]
     
 class RawDateConverter():
-    def get_raw_data(self):
+    def get_raw_data(self,a_filename):
         l_store = storage.storage()
-        self.m_content = l_store.read({'filename':'Results.csv'})
+        self.m_content = l_store.read({'filename':a_filename})
         ofile=open("results.xls","wb")
-        ofile.write(self.m_content[-1]['content'])
+        ofile.write(self.m_content[0]['content'])
         ofile.close()
         
     def save(self):

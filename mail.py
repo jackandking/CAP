@@ -8,6 +8,8 @@ from email.mime.base import MIMEBase
 from email.utils import COMMASPACE,formatdate
 from email import encoders
 
+g_cap_mail="CAP@thomsonreuters.com"
+
 def send_mail(fro, to, subject, text, files=[]):
     #assert type(server) == dict 
     assert type(to) == list
