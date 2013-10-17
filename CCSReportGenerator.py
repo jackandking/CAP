@@ -66,7 +66,10 @@ class CCSReportGenerator():
     graphWeekCsvContent = srcFile.read()
     srcFile.close()
 
-    to=['chao.xie@thomsonreuters.com','yingjie.liu@thomsonreuters.com','liang.zhang1@thomsonreuters.com']
+
+    #to=['chao.xie@thomsonreuters.com','yingjie.liu@thomsonreuters.com','liang.zhang1@thomsonreuters.com']
+    to=['COLL-GLOBAL-TECH-CORE-EVA@thomsonreuters.com']
+    #to=['sheng.chen@thomsonreuters.com','yingjie.liu@thomsonreuters.com','stephen.wang@thomsonreuters.com','abhilash.abraham@thomsonreuters.com','zhe.wang@thomsonreuters.com','francis.wang@thomsonreuters.com','jianping.zuo@thomsonreuters.com','cynthia.wang@thomsonreuters.com','stephen.li@thomsonreuters.com']
     send_mail('jiu.chen@thomsonreusters.com',to,'CCS Weekly Report',reportAllContent)
 
   def save(self):

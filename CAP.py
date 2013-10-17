@@ -14,33 +14,36 @@ from RTFetcher import RTFetcher
 from ConvertRawData import *
 from CCSReportGenerator import CCSReportGenerator
 import logging
+from apscheduler.scheduler import Scheduler
+from time import time
 
 class CAP_UT(unittest.TestCase):
 
     def testOne(self):
-      l_f=RTFetcher()
-      l_f.login()
-      l_f.fetch()
-      l_fn="Results1.csv"
-      l_f.save(l_fn)
 
-      l_c=RawDateConverter()
-      l_c.get_raw_data(l_fn)
-      l_c.generate_local_file(get_date_with_offset(-7))
+      sched = Scheduler()
 
-      l_g=CCSReportGenerator()
-      l_g.callPerlScript()
-      #l_g.save()
-      l_g.publish()
-    def test2(self):
-      l_c=RawDateConverter()
-      l_c.get_raw_data()
-      l_c.generate_local_file(get_date_with_offset(-7))
+      #@sched.interval_schedule(seconds=10)
+      @sched.cron_schedule(day_of_week=0,hour=5,minute=30)
+      def doCCSReport():
+        l_f=RTFetcher()
+        l_f.login()
+        l_f.fetch()
+        l_fn="Results_"+time()+".csv"
+        l_f.save(l_fn)
 
-      l_g=CCSReportGenerator()
-      l_g.callPerlScript()
-      l_g.save()
+        l_c=RawDateConverter()
+        l_c.get_raw_data(l_fn)
+        l_c.generate_local_file(get_date_with_offset(-7))
 
+        l_g=CCSReportGenerator()
+        l_g.callPerlScript()
+        #l_g.save()
+        l_g.publish()
+
+      config = {'apscheduler.standalone': True}
+      sched.configure(config)
+      sched.start()
 def main():
     unittest.main()
 
