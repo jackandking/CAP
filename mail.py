@@ -1,6 +1,6 @@
 import os
 import smtplib
-import mandrill
+#import mandrill
 
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
