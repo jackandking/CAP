@@ -165,7 +165,7 @@ foreach my $id (sort keys %mapTickets)
 
 # ====================================================================================
 # 					print the result to file
-print(OUT1 "#numWeek,Date,CreateWithinDefect,CloseWithinDefect,CreateTotalDefect,CloseTotalDefect,CreateWithinHelp,CloseWithinHelp,CreateTotalHelp,CloseTotalHelp,CreateTotal,CloseTotal\n");
+print(OUT1 "numWeek,Date,CreateWithinDefect,CloseWithinDefect,CreateTotalDefect,CloseTotalDefect,CreateWithinHelp,CloseWithinHelp,CreateTotalHelp,CloseTotalHelp,CreateTotal,CloseTotal\n");
 # 
 my $lastCreateDefect 		= 0;
 my $lastCloseDefect 		= 0;

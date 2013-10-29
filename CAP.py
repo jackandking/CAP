@@ -36,10 +36,8 @@ class CAP_UT(unittest.TestCase):
         l_c.get_raw_data(l_fn)
         l_c.generate_local_file(get_date_with_offset(-7))
 
-        l_g=CCSReportGenerator()
-        l_g.callPerlScript()
-        #l_g.save()
-        l_g.publish()
+        l_g = SupportTicketsReportGenerator()
+        l_g.run()
 
       config = {'apscheduler.standalone': True}
       sched.configure(config)
