@@ -191,7 +191,7 @@ class SupportTicketsReportGenerator():
         logging.debug("send email")
         attachmentList = ['tickets-per-system.png', 'tickets-per-region.png', 'total-tickets.png']
         title = "CCT Weekly Report for Supporting Issues from "+(date.today()-timedelta(days=7)).strftime('%Y-%m-%d')+" to "+date.today().strftime('%Y-%m-%d')
-        to=['sheng.chen@thomsonreusters.com', 'stephen.li@thomsonreusters.com', 'jianping.zuo@thomsonreusters.com', 'cynthia.wang@thomsonreusters.com', 'hongfeng.yao@thomsonreusters.com', 'yingjie.liu@thomsonreusters.com', 'jiu.chen@thomsonreusters.com', 'liang.zhang1@thomsonreusters.com', 'chao.xie@thomsonreusters.com']
-        send_mail('hongfeng.yao@thomsonreusters.com',to, title, reportAllContent, attachmentList)
-        # to=['jiu.chen@thomsonreuters.com']
-        # send_mail('yingjie.liu@thomsonreusters.com',to, title, reportAllContent, attachmentList)
+        to=['sheng.chen@thomsonreuters.com', 'stephen.li@thomsonreuters.com', 'jianping.zuo@thomsonreuters.com', 'cynthia.wang@thomsonreuters.com', 'hongfeng.yao@thomsonreuters.com', 'yingjie.liu@thomsonreuters.com', 'jiu.chen@thomsonreuters.com', 'liang.zhang1@thomsonreuters.com', 'chao.xie@thomsonreuters.com']
+        send_mail('hongfeng.yao@thomsonreuters.com',to, title, reportAllContent, attachmentList)
+        # to=['jiu.chen@thomsonreuters.com', 'yingjie.liu@thomsonreuters.com']
+        # send_mail('yingjie.liu1@thomsonreuters.com',to, title, reportAllContent, attachmentList)
