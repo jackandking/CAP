@@ -20,7 +20,7 @@ class CAP_TicketsReport():
         l_g = SupportTicketsReportGenerator()
         l_g.run()
 
-class UT(unittest.TestCase):
+class _UT(unittest.TestCase):
     """unit test of CAP_TicketsReport"""
     def testOne(self):
         l_fn="Results_"+ str(time()) +".csv"

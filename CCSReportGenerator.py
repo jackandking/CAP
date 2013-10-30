@@ -168,8 +168,6 @@ class SupportTicketsReportGenerator():
 
         logging.debug("call perl script")
         self.callPerlScript()
-        # logging.debug("draw tickets overview plot")
-        # self.genTicketsOverviewPlot()
         logging.debug("draw tickets-per-system plot")
         self.genSystemPlot()
         logging.debug("draw tickets-per-region plot")
@@ -192,7 +190,8 @@ class SupportTicketsReportGenerator():
 
         logging.debug("send email")
         attachmentList = ['tickets-per-system.png', 'tickets-per-region.png', 'total-tickets.png']
-        to=['COLL-GLOBAL-TECH-CORE-EVA@thomsonreuters.com']
-        send_mail('jiu.chen@thomsonreusters.com',to,'CCS Weekly Report', reportAllContent, attachmentList)
+        title = "CCT Weekly Report for Supporting Issues from "+(date.today()-timedelta(days=7)).strftime('%Y-%m-%d')+" to "+date.today().strftime('%Y-%m-%d')
+        to=['sheng.chen@thomsonreusters.com', 'stephen.li@thomsonreusters.com', 'jianping.zuo@thomsonreusters.com', 'cynthia.wang@thomsonreusters.com', 'hongfeng.yao@thomsonreusters.com', 'yingjie.liu@thomsonreusters.com', 'jiu.chen@thomsonreusters.com', 'liang.zhang1@thomsonreusters.com', 'chao.xie@thomsonreusters.com']
+        send_mail('hongfeng.yao@thomsonreusters.com',to, title, reportAllContent, attachmentList)
         # to=['jiu.chen@thomsonreuters.com']
-        # send_mail('yingjie.liu@thomsonreusters.com',to,'Support Tickets Report', reportAllContent, attachmentList)
+        # send_mail('yingjie.liu@thomsonreusters.com',to, title, reportAllContent, attachmentList)
