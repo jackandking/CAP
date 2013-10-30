@@ -26,7 +26,7 @@ class RawDateConverter():
         l_store = storage.storage()
         self.m_content = l_store.read({'filename':a_filename})
         ofile=open("results.xls","wb")
-        ofile.write(self.m_content[0]['content'])
+        ofile.write(self.m_content[0]['content'].encode('cp1252'))
         ofile.close()
         
     def save(self):

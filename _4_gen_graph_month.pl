@@ -167,7 +167,7 @@ foreach my $id (sort keys %mapTickets)
 
 # ====================================================================================
 # 					print the result to file
-print(OUT1 "#Month,CreateTotal,CloseTotal,CreateGQS,CloseGQS,CreateLegacy,CloseLegacy,CreateSDD,CloseSDD,CreateElektron,CloseElektron,CreateEMEA,CloseEMEA,CreateAMERS,CloseAMERS,CreateAPAC,CloseAPAC\n");
+print(OUT1 "Month,CreateTotal,CloseTotal,CreateGQS,CloseGQS,CreateLegacy,CloseLegacy,CreateSDD,CloseSDD,CreateElektron,CloseElektron,CreateEMEA,CloseEMEA,CreateAMERS,CloseAMERS,CreateAPAC,CloseAPAC\n");
 
 print(OUT1    "Month,Total,Total,GQS,GQS,RAQ/DCMLS/TQS,RAQ/DCMLS/TQS,SDD,SDD,CVA/CVG,CVA/CVG,EMEA,EMEA,AMERS,AMERS,APAC,APAC\n");
 
